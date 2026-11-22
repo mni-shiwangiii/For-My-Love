@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Love 💙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
+            color: #e8e8e8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Login Screen --- */
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: opacity 1.2s ease;
+            padding: 20px;
+        }
+        .login-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #a8d8ea;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(168, 216, 234, 0.3);
+            text-align: center;
+        }
+        .login-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: #b8c6cc;
+            margin-bottom: 30px;
+            font-style: italic;
+            text-align: center;
+        }
+        .input-group {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(168, 216, 234, 0.2);
+            padding: 35px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 90%;
+            text-align: center;
+        }
+        input[type="password"] {
+            padding: 14px 24px;
+            font-size: 1rem;
+            border: 1px solid rgba(168, 216, 234, 0.3);
+            border-radius: 30px;
+            outline: none;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            transition: border 0.3s, box-shadow 0.3s;
+            width: 220px;
+        }
+        input[type="password"]::placeholder { color: #7a8b94; }
+        input[type="password"]:focus {
+            border-color: #a8d8ea;
+            box-shadow: 0 0 15px rgba(168, 216, 234, 0.3);
+        }
+        button {
+            background: linear-gradient(135deg, #2c5364, #a8d8ea);
+            color: #0f2027;
+            border: none;
+            padding: 14px 36px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 216, 234, 0.4);
+        }
+        #error-msg {
+            color: #ff8a9e;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            height: 20px;
+        }
+
+        /* --- Main Content --- */
+        #main-content {
+            display: none;
+            padding: 60px 20px 80px;
+            animation: fadeUp 1.5s ease;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        .hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.8rem;
+            color: #a8d8ea;
+            margin-bottom: 15px;
+            text-shadow: 0 0 40px rgba(168, 216, 234, 0.25);
+        }
+        .hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            color: #b8c6cc;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* --- Section Titles --- */
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: #a8d8ea;
+            text-align: center;
+            margin: 70px auto 40px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '✦';
+            display: block;
+            font-size: 1rem;
+            color: #5a8a9a;
+            margin-top: 8px;
+        }
+
+        /* --- About Him Cards --- */
+        .about-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .about-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(168, 216, 234, 0.12);
+            padding: 30px 25px;
+            border-radius: 18px;
+            width: 260px;
+            transition: transform 0.3s, border-color 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .about-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(168, 216, 234, 0.4);
+        }
+        .about-card .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .about-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: #a8d8ea;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .about-card p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #9aabb3;
+        }
+
+        /* --- Poems Section --- */
+        .poems-container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .poem-card {
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid #a8d8ea;
+            padding: 35px 35px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+        .poem-card:hover {
+            background: rgba(255,255,255,0.06);
+        }
+        .poem-card h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: #a8d8ea;
+            margin-bottom: 18px;
+        }
+        .poem-card .poem-body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #c5d3d9;
+            font-style: italic;
+            white-space: pre-line;
+        }
+
+        /* --- Closing Letter --- */
+        .closing-letter {
+            max-width: 600px;
+            margin: 70px auto 0;
+            background: rgba(168, 216, 234, 0.06);
+            border: 1px solid rgba(168, 216, 234, 0.15);
+            padding: 45px 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .closing-letter p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #c5d3d9;
+            margin-bottom: 15px;
+        }
+        .closing-letter .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #a8d8ea;
+            margin-top: 20px;
+        }
+
+        /* --- Floating stars/particles --- */
+        .star {
+            position: fixed;
+            color: rgba(168, 216, 234, 0.4);
+            font-size: 14px;
+            animation: drift 8s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        @keyframes drift {
+            0% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.6rem; }
+            .section-title { font-size: 2.2rem; }
+            .about-card { width: 100%; max-width: 320px; }
+            .poem-card { padding: 25px 22px; }
+            .closing-letter { padding: 30px 22px; }
+            .login-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating particles -->
+    <div class="star" style="left: 8%; animation-delay: 0s;">✦</div>
+    <div class="star" style="left: 22%; animation-delay: 3s;">✧</div>
+    <div class="star" style="left: 40%; animation-delay: 1.5s;">✦</div>
+    <div class="star" style="left: 58%; animation-delay: 4s;">✧</div>
+    <div class="star" style="left: 75%; animation-delay: 2s;">✦</div>
+    <div class="star" style="left: 92%; animation-delay: 5s;">✧</div>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen">
+        <div class="login-title">For You, My Love</div>
+        <p class="login-sub">A little something I made just for you</p>
+        <div class="input-group">
+            <p style="margin-bottom: 18px; font-size: 0.9rem; color: #9aabb3;">
+                Enter our special date to unlock:<br>
+                <i style="font-size: 0.85rem;">(Hint: Our Day)</i>
+            </p>
+            <input type="password" id="password" placeholder="Enter date here">
+            <br>
+            <button onclick="checkPassword()">Unlock 💙</button>
+            <div id="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
+
+        <div class="hero">
+            <h1>You mean the world to me</h1>
+            <p>This page is a small reminder of how much you matter.<br>Every word here is for you.</p>
+        </div>
+
+        <!-- ABOUT HIM -->
+        <h2 class="section-title">The Things I  Adore About You</h2>
+        <div class="about-grid">
+
+            <div class="about-card">
+                <div class="icon">🌙</div>
+                <h3>Your Kindness</h3>
+                <p>The way you care — quietly, without needing to be asked. You make people feel safe just by being you.</p>
+            </div>
+            <div class="about-card">
+                <div class="icon">☀️</div>
+                <h3>Your Smile</h3>
+                <p>It finds me even on my worst days. One look, and the whole world softens.</p>
+            </div>
+            <div class="about-card">
+                <div class="icon">🌊</div>
+                <h3>Your Voice</h3>
+                <p>Calm in the chaos. Home in a sound. I could listen to you talk about anything.</p>
+            </div>
+            <div class="about-card">
+                <div class="icon">🔥</div>
+                <h3>Your Passion</h3>
+                <p>The way your eyes light up when you talk about what you love — I fall for it every single time.</p>
+            </div>
+            <div class="about-card">
+                <div class="icon">🫶</div>
+                <h3>How You Hold Me</h3>
+                <p>Like I'm something precious. Like the world can wait. Like nothing else matters but this moment.</p>
+            </div>
+            <div class="about-card">
+                <div class="icon">✨</div>
+                <h3>Just... You</h3>
+                <p>The you that ragebait me, that tease me, that puts up with my chaos. The you that I wouldn't trade for anything.</p>
+            </div>
+
+        </div>
+
+        <!-- POEMS -->
+        <h2 class="section-title">Poems I Wrote For You</h2>
+        <div class="poems-container">
+
+            <!-- POEM 1 -->
+            <div class="poem-card">
+                <h3>Someone Like You ❣️</h3>
+                <div class="poem-body">
+We fight, we laugh, we never agree,
+Yet you're still the one who puts up with me.
+You tease me for fun, then you become so nice,
+And somehow I fall for the same trick twice.
+
+Our friends have theories, they think they know,
+But we're just two weirdos stealing the show.
+You call me names, I give them back,
+Our friendship's a train that's never on track.
+
+You make me smile without even trying,
+And make me laugh when I'm busy denying.
+We're more than just jokes, but less than a label,
+Two stubborn fools with a bond that's unstable.
+
+So here's to our chaos, our jokes, and our fun,
+To all the ridiculous things that we've done.
+Whatever we call this, one thing stays true,
+Life's way more interesting with someone like you.</div>
+            </div>
+
+            <!-- POEM 2 -->
+            <div class="poem-card">
+                <h3>Between Buses and Cars</h3>
+                <div class="poem-body">
+I never thought we could get this far.
+You saw me first, between buses and cars.
+You came to approach my lonely little world,
+Where I sat by the window, being all curled.
+
+Didn't know we could click this fast,
+Telling each other about our past.
+Nothing between us could ever be a bar,
+Even if it's bizarre, you would always be my star.
+
+I love you as much as I love the moon.
+Us being friends, I considered it a boon.
+Maybe we could never have gotten this far
+If you had never seen me between buses and cars.
+
+We'd be sending reels every time we got free.
+You are like the pretty flowers if I were a tree.
+The bond between us will stand any kind of test.
+I just want to tell you that, for me, you're the best.</div>
+            </div>
+
+            <!-- POEM 3 -->
+            <div class="poem-card">
+                <h3>Our October</h3>
+                <div class="poem-body">
+You asked me my name, I thought nothing of it,
+October is special for me, that's what I admit.
+Never knew a random man could mean the world to me,
+Based on the bond we share, I guess we're meant to be.
+
+We first met on a random day, the 5th of October,
+Since then you've become my four-leafed clover.
+Whether I am drunk or I am sober,
+If I get a chance, I'd choose you over and over.
+
+You ragebait me and I get baited,
+Looking back now, I guess we're fated
+An amazing chemistry between us was created,
+Life would be best in a few years if we dated😝
+
+I told on the 24th that you were my soulmate,
+Even if it's too late, you said you'll wait<3
+I hope that someday, we get to celebrate,
+Living together, looking back and remembering this date
+
+You confessed that I'm your type on the 26th,
+Hope its you who I'll be with,
+I don't know if forever is a myth,
+But one of the best day for me would always be the 5th.</div>
+            </div>
+
+            <!-- POEM 4 -->
+            <div class="poem-card">
+                <h3>If I Said Yes</h3>
+                <div class="poem-body">
+What if I said yes one day,
+Would you take my fears away?
+Hide me where the world can't go,
+In the heart only you could show.
+
+Tuck me in your heart's embrace,
+Give my restless thoughts a place.
+Let the world keep spinning outside,
+While I find peace here by your side.
+
+No promises of forevermore,
+Not knowing what the future's for.
+Just you and me, away from the noise,
+A quiet little world, a simple choice.
+
+And if I said yes tonight,
+Would you hold my dreams just right?
+Not asking me to be fearless, too—
+Just let me feel safe next to you.</div>
+            </div>
+
+            <!-- POEM 5 -->
+            <div class="poem-card">
+                <h3>In Every Lifetime</h3>
+                <div class="poem-body">
+If I were the moon, you'd be my tide,
+The pull that keeps me by your side.
+If I were a poem, you'd be my rhyme,
+The sweetest word I'd write through time.
+
+I'd learn the language of your eyes,
+And find my heaven in your smile.
+I'd steal the stars from midnight skies,
+Just to watch you shine for a while.
+
+And if the world forgot our names,
+I'd love you still through the wind and rain.
+For even if the stars grew old,
+Your hand would still feel like home to hold.
+
+So if forever has a place,
+I'd spend it lost in your embrace.
+And if all lifetimes start anew,
+I'd find a thousand ways to choose you.</div>
+            </div>
+
+            <!-- POEM 6 -->
+            <div class="poem-card">
+                <h3>A Thousand Ways to Say I Love You</h3>
+                <div class="poem-body">
+I love you in the morning,
+Before the world begins,
+I love you in the quiet,
+And in the chaos that life brings.
+
+I love you when you're laughing,
+And when you cannot find the words.
+I love you in your stories,
+And in the silence that we share.
+
+I love you for your madness,
+For every little thing you do.
+I love you in the ordinary,
+In moments spent with you.
+
+I love you when I miss you,
+And when you're right beside me.
+I love you in the distance,
+And in every dream that finds me.
+
+I love you for the person you are,
+For the person you're yet to be.
+I love you in a thousand ways,
+Some even you may never see.
+
+And if I had a thousand lifetimes,
+I'd spend them saying it anew.
+For no matter how many times I say it,
+I'll never run out of I love you.</div>
+            </div>
+
+        </div>
+
+        <!-- CLOSING LETTER -->
+        <div class="closing-letter">
+            <p>My love,</p>
+            <p>Thank you for being exactly who you are. For every laugh, every late-night talk, every quiet moment where nothing needed to be said. I notice all of it. I treasure all of it.</p>
+            <p>From between buses and cars to every October after — I'd choose you over and over.</p>
+            <p class="signature">Always yours 💙</p>
+        </div>
+
+    </div>
+
+    <script>
+        // CHANGE THIS to your special date (e.g., "1031", "0510", "5th", etc.)
+        const secretPassword = "1031";
+
+        function checkPassword() {
+            const input = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const loginScreen = document.getElementById('login-screen');
+            const mainContent = document.getElementById('main-content');
+
+            if (input === secretPassword) {
+                loginScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                }, 1200);
+            } else {
+                errorMsg.innerText = "Hmm, that's not it. Try again 💙";
+                document.getElementById('password').value = "";
+            }
+        }
+
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+    </script>
+</body>
+</html>
